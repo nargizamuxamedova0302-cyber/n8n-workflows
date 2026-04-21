@@ -1,0 +1,112 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        32,
+        0
+      ],
+      "id": "7322cf4c-6258-4191-aa90-6627a992737f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "39a892ec-bf14-414b-9914-de6d812bf67f",
+      "name": "When chat message received",
+      "webhookId": "b0f7a8ed-b983-46fd-9e4e-af502b2db251"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "\"Sen muvofiqlik bo'yicha mutaxassis (Compliance Officer)san. Vazifang: berilgan matnni skanerlash, undagi huquqiy xatarlarni va qoidalarga mos kelmaslik holatlarini aniqlash. Yakunda hisobot va tavsiyalar ber.\"\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "87a6d56d-61bb-44a8-bbcf-4c16a52c1fde",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        320,
+        208
+      ],
+      "id": "707252b5-7cd1-460d-80a5-be7888887c3d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7LocR6MpWGOdscnk",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "cfb456c8-6c0a-43e8-ab0d-fc452566012a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d3ca50f32a40cafd7dccabb6cb000bc9d2d555a4c479c30dedd51721605ee132"
+  },
+  "id": "SPSWpTanbtrUgza3",
+  "tags": []
+}
